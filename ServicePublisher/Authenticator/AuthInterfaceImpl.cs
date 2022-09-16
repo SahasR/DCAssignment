@@ -5,14 +5,36 @@ using System.IO;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using CustomException;
 
 namespace Authenticator
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     internal class AuthInterfaceImpl : AuthInterface
     {
-        public AuthInterfaceImpl() { }
+        private static AuthInterfaceImpl instance = null; private static string myfile; private static string projectDirectory;
+        private AuthInterfaceImpl()
+        {
+            /* SPECIFYING A FILE PATH */
+            projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
+            myfile = projectDirectory.Substring(0, projectDirectory.IndexOf("ServicePublisher"));
+            myfile += "Information.txt";
 
+            using (StreamWriter sw = File.CreateText(myfile)){}
+        }
+
+        /* Since the authenticator is going to be called by multiple services all accessing the same local text file 
+         * we made the authenticator a singleton */
+        public static AuthInterfaceImpl getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new AuthInterfaceImpl();
+            }
+            return instance;
+        }
+
+        /**/
         public String Register(String name, String password)
         {
             WriteFile(name, password);
@@ -41,11 +63,11 @@ namespace Authenticator
         {
             bool isFound = false;
 
-            using (var reader = new StreamReader(@"C:\AuthInfo.csv"))
+            using (StreamReader sr = File.OpenText(myfile))
             {
-                while (!reader.EndOfStream)
+                while (!sr.EndOfStream)
                 {
-                    var line = reader.ReadLine();
+                    var line = sr.ReadLine();
                     var values = line.Split(',');
 
                     if (name.Equals(values[0]) && password.Equals(values[1]))
@@ -56,16 +78,15 @@ namespace Authenticator
                     }
                 }
             }
-
             return isFound;
         }
 
         /*SAVES NAME AND PASSWORD INTO A .CSV FILE*/
         private void WriteFile(String name, String password)
         {
-            using (var reader = new StreamWriter(@"C:\AuthInfo.csv"))
+            using (StreamWriter sw = File.AppendText(myfile))
             {
-
+               
             }
         }
     }
