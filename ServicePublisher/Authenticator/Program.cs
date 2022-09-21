@@ -16,13 +16,13 @@ namespace Authenticator
             while (!timerSet)
             {
                 /* QUERY USER FOR THE NO.OF MINUTES FOR CLEAN-UP */
-                Console.Write("Enter desired number of minutes for periodical clean-up: ");
+                Console.Write("Enter desired number of minutes for a periodical clean-up: ");
                 string input = Console.ReadLine();
                 
                 try
                 {
                     timeout = Int32.Parse(input);
-                    if (timeout > 0)
+                    if (timeout > 0.0)
                     {
                         timerSet = true;
 
@@ -32,16 +32,15 @@ namespace Authenticator
             }
 
             AuthInterfaceImpl impl = AuthInterfaceImpl.getInstance();
-            impl.setTimer(timeout);
+            impl.SetTimer(timeout);
 
+            //SETTING UP THE AUTHENTICATOR
             NetTcpBinding tcp = new NetTcpBinding();
             host = new ServiceHost(typeof(AuthInterfaceImpl));
             host.AddServiceEndpoint(typeof(AuthInterface), tcp, "net.tcp://0.0.0.0:8100/AuthenticatorService");
             host.Open();
-
             Console.WriteLine("Authenticator is Online");
             Console.ReadLine();
-
             host.Close();
         }
     }
