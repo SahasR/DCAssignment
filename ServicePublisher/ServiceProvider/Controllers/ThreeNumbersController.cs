@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using ServiceProvider.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,17 +15,23 @@ namespace ServiceProvider.Controllers
         [Route("add/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
-        public int Add(int firstNumber, int secondNumber, int thirdNumber)
+        public IHttpActionResult Add(int firstNumber, int secondNumber, int thirdNumber)
         {
-            return firstNumber + secondNumber + thirdNumber;
+            Result result = new Result();
+            result.value = firstNumber + secondNumber + thirdNumber;
+            string json = JsonConvert.SerializeObject(result);
+            return Ok(json);
         }
 
         [Route("multiply/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("multiply")]
         [HttpGet]
-        public int Multiply(int firstNumber, int secondNumber, int thirdNumber)
+        public IHttpActionResult Multiply(int firstNumber, int secondNumber, int thirdNumber)
         {
-            return firstNumber * secondNumber * thirdNumber;
+            Result result = new Result();
+            result.value = firstNumber * secondNumber * thirdNumber;
+            string json = JsonConvert.SerializeObject(result);
+            return Ok(json);
         }
     }
 }
