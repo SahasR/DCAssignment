@@ -13,7 +13,8 @@ namespace Authenticator
     internal class AuthInterfaceImpl : AuthInterface
     {
         private static AuthInterfaceImpl instance = null; 
-        private string myfile; private string projectDirectory; private int timer;
+        private string myfile; private string projectDirectory; 
+        private int timer;
         private AuthInterfaceImpl()
         {
             /* SPECIFYING A FILE PATH */
@@ -49,7 +50,8 @@ namespace Authenticator
                 Random random = new Random();
                 int number = random.Next(10000000, 99999999); 
                 return number;
-            }
+
+            }else
 
             /*EXCEPTION*/
             return -1;
@@ -60,23 +62,12 @@ namespace Authenticator
             return "Validated";
         }
 
-        public int getTimer()
-        {
-            return timer;
-        }
-
-        public void setTimer(int timer)
-        {
-            timer = timer * 60 * 1000;
-        }
-
         private bool ReadFile(String name, String password)
         {
             bool isFound = false;
-
             using (StreamReader sr = File.OpenText(myfile))
             {
-                while (!sr.EndOfStream)
+                while(!sr.EndOfStream)
                 {
                     var line = sr.ReadLine();
                     var values = line.Split(',');
@@ -85,7 +76,6 @@ namespace Authenticator
                     {
                         isFound = true;
                         break;
-
                     }
                 }
             }
@@ -97,8 +87,17 @@ namespace Authenticator
         {
             using (StreamWriter sw = File.AppendText(myfile))
             {
-               
+                sw.WriteLine(name + ","+ password);
             }
+        }
+        public int getTimer()
+        {
+            return timer;
+        }
+
+        public void setTimer(int timer)
+        {
+            timer = timer * 60 * 1000;
         }
     }
 }
