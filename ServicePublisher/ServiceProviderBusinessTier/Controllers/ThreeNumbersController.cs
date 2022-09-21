@@ -52,7 +52,6 @@ namespace ServiceProviderBusinessTier.Controllers
                 return Content(HttpStatusCode.OK, result);
             }
         }
-
         private Boolean checkToken(int token)
         {
             return true;

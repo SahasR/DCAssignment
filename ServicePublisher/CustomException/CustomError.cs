@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CustomException
 {
     [DataContract]
-    public class UserInputException
+    public class CustomError
     {
         [DataMember]
         public string ExceptionMessage { get; set; }
