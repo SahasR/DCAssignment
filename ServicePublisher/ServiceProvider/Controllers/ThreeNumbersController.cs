@@ -19,8 +19,7 @@ namespace ServiceProvider.Controllers
         {
             Result result = new Result();
             result.value = firstNumber + secondNumber + thirdNumber;
-            string json = JsonConvert.SerializeObject(result);
-            return Ok(json);
+            return Ok(result);
         }
 
         [Route("multiply/{firstNumber}/{secondNumber}/{thirdNumber}")]
@@ -30,8 +29,7 @@ namespace ServiceProvider.Controllers
         {
             Result result = new Result();
             result.value = firstNumber * secondNumber * thirdNumber;
-            string json = JsonConvert.SerializeObject(result);
-            return Ok(json);
+            return Ok(result);
         }
     }
 }
