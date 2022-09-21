@@ -12,7 +12,8 @@ namespace Authenticator
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     internal class AuthInterfaceImpl : AuthInterface
     {
-        private static AuthInterfaceImpl instance = null; private static string myfile; private static string projectDirectory;
+        private static AuthInterfaceImpl instance = null; 
+        private string myfile; private string projectDirectory; private int timer;
         private AuthInterfaceImpl()
         {
             /* SPECIFYING A FILE PATH */
@@ -57,6 +58,16 @@ namespace Authenticator
         public String Validate(int token)
         {
             return "Validated";
+        }
+
+        public int getTimer()
+        {
+            return timer;
+        }
+
+        public void setTimer(int timer)
+        {
+            timer = timer * 60 * 1000;
         }
 
         private bool ReadFile(String name, String password)
