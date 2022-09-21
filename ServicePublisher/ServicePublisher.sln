@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authenticator", "Authentica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomException", "CustomException\CustomException.csproj", "{0D9BCCA0-A487-4990-98B2-DDAB2D7096EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProvider", "ServiceProvider\ServiceProvider.csproj", "{B6EC34C6-E3D6-4DC6-B6E2-681FCCBCE62D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0D9BCCA0-A487-4990-98B2-DDAB2D7096EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D9BCCA0-A487-4990-98B2-DDAB2D7096EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D9BCCA0-A487-4990-98B2-DDAB2D7096EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6EC34C6-E3D6-4DC6-B6E2-681FCCBCE62D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6EC34C6-E3D6-4DC6-B6E2-681FCCBCE62D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6EC34C6-E3D6-4DC6-B6E2-681FCCBCE62D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6EC34C6-E3D6-4DC6-B6E2-681FCCBCE62D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
