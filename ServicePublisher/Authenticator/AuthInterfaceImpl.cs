@@ -47,8 +47,13 @@ namespace Authenticator
 
             }else{
 
-                //TO DO : THROW ERROR
-                return "Error!";
+                //TO DO : CHECK
+                CustomFaults exception = new CustomFaults
+                {
+                    ExceptionMessage = "Username already exists. Please choose another username",
+                    ExceptionDescription = "Fault occured in Register - Authenticator"
+                };
+                throw new FaultException<CustomFaults>(exception, new FaultReason(exception.ExceptionMessage));
             }
         }
 
@@ -62,8 +67,14 @@ namespace Authenticator
                 WriteFile(name, number.ToString(), tokenFile);
                 return number;
             }
-            //TO DO : THROW ERROR 
-            return -1;
+
+            //TO DO : CHECK
+            CustomFaults exception = new CustomFaults
+            {
+                ExceptionMessage = "Your username or password do not match",
+                ExceptionDescription = "Fault occured in Login - Authenticator"
+            };
+            throw new FaultException<CustomFaults>(exception, new FaultReason(exception.ExceptionMessage));
         }
 
         public String Validate(int token)

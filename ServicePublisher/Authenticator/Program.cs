@@ -34,6 +34,8 @@ namespace Authenticator
             AuthInterfaceImpl impl = AuthInterfaceImpl.getInstance();
             impl.SetTimer(timeout);
 
+            //CLEARING TOKENS USING MULTI THREADING
+
             //SETTING UP THE AUTHENTICATOR
             NetTcpBinding tcp = new NetTcpBinding();
             host = new ServiceHost(typeof(AuthInterfaceImpl));
