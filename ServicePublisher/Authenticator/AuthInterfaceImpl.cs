@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using CustomException;
+using System.Xml.Linq;
 
 namespace Authenticator
 {
@@ -24,7 +25,10 @@ namespace Authenticator
 
             //CREATING A TEXT FILE TO STORE USER AND TOKEN INFORMATION
             using (StreamWriter sw = File.CreateText(registerFile)) {}
-            using (StreamWriter sw = File.CreateText(tokenFile)) {}
+            using (StreamWriter sw = File.CreateText(tokenFile)) 
+            {
+                sw.WriteLine("Sahas" + "," + "1234");
+            }
         }
 
         //TO ACCESS THE SAME LOCAL TEXT FILES WE DESIGNED THE AUTHENTICATOR AS A SINGLETON
