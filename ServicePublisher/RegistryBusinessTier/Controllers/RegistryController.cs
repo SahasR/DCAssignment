@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RegistryBusinessTier.Models;
 using RestSharp;
+using Authenticator;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,6 +10,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using EndPoint = RegistryBusinessTier.Models.EndPoint;
+using System.ServiceModel;
+using System.Diagnostics;
 
 namespace RegistryBusinessTier.Controllers
 {
@@ -119,7 +122,19 @@ namespace RegistryBusinessTier.Controllers
 
         private Boolean checkToken(int token)
         {
-            return true;
+            AuthInterface foob;
+            ChannelFactory<AuthInterface> foobFactory;
+            NetTcpBinding tcp = new NetTcpBinding();
+            string URL = "net.tcp://localhost:8100/AuthenticatorService";
+            foobFactory = new ChannelFactory<AuthInterface>(tcp,URL);
+            foob = foobFactory.CreateChannel();
+            if (foob.Validate(token).Equals("Validated")){
+                return true;
+            } else
+            {
+                return false;
+            }
+            
         }
     }
 }

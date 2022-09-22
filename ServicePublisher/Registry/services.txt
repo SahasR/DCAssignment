@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "Sahas",
+    "Description": "Checking authenticator",
+    "APIEndpoint": "Google.com",
+    "numOperands": 2,
+    "operandtype": "integer"
+  },
+  {
+    "Name": "Sahas",
+    "Description": "Checking authenticator",
+    "APIEndpoint": "Google.com",
+    "numOperands": 2,
+    "operandtype": "integer"
+  }
+]
