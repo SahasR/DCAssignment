@@ -5,8 +5,9 @@ using System.Web;
 
 namespace RegistryBusinessTier.Models
 {
-    public class EndPoint
+    public class endpointObject
     {
-        public string Value { get; set; }
+        public int token { get; set; }
+        public EndPoint endpoint { get; set; }
     }
 }

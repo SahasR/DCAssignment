@@ -54,9 +54,8 @@ namespace Registry.Controllers
             {
                 string json = JsonConvert.SerializeObject(services, Formatting.Indented);
                 sw.WriteLine(json);
-             
             }
-            return Ok(service);
+            return Ok();
         }
 
         [HttpGet]
