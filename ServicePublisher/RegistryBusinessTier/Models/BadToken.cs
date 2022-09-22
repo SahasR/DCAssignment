@@ -5,8 +5,9 @@ using System.Web;
 
 namespace RegistryBusinessTier.Models
 {
-    public class EndPoint
+    public class BadToken
     {
-        public string Value { get; set; }
+        public string Status = "Denied";
+        public string Reason = "Authentication Error";
     }
 }
