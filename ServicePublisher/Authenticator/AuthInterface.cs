@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Authenticator
 {
     [ServiceContract]
-    internal interface AuthInterface
+    public interface AuthInterface
     {
         [OperationContract]
         [FaultContract(typeof(CustomFaults))]
