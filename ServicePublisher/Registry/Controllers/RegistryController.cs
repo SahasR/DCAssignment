@@ -43,8 +43,9 @@ namespace Registry.Controllers
                     }
                 }
                 services = JsonConvert.DeserializeObject<List<Service>>(data);
-            } else
-            {
+
+            }else{
+
                 services = new List<Service>();
             }
 
@@ -68,11 +69,12 @@ namespace Registry.Controllers
             projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
             registerFile = projectDirectory + "\\" + "services.txt";
 
-            if (!File.Exists(registerFile))
+            if(!File.Exists(registerFile))
             {
                 return NotFound();
-            } else
-            {
+
+            }else{
+
                 string data = "";
                 string line = "";
                 using (StreamReader sr = new StreamReader(registerFile))
