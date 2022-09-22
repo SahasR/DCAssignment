@@ -25,10 +25,7 @@ namespace Authenticator
 
             //CREATING A TEXT FILE TO STORE USER AND TOKEN INFORMATION
             using (StreamWriter sw = File.CreateText(registerFile)) {}
-            using (StreamWriter sw = File.CreateText(tokenFile)) 
-            {
-                sw.WriteLine("Sahas" + "," + "1234");
-            }
+            using (StreamWriter sw = File.CreateText(tokenFile)) {}
         }
 
         //TO ACCESS THE SAME LOCAL TEXT FILES WE DESIGNED THE AUTHENTICATOR AS A SINGLETON

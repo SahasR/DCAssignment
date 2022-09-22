@@ -128,9 +128,13 @@ namespace RegistryBusinessTier.Controllers
             string URL = "net.tcp://localhost:8100/AuthenticatorService";
             foobFactory = new ChannelFactory<AuthInterface>(tcp,URL);
             foob = foobFactory.CreateChannel();
-            foob.Validate(token);
-            Debug.WriteLine(foob.Validate(token));
-            return true;
+            if (foob.Validate(token).Equals("Validated")){
+                return true;
+            } else
+            {
+                return false;
+            }
+            
         }
     }
 }
