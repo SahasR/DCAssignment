@@ -21,8 +21,8 @@ namespace Registry.Controllers
         private string projectDirectory;
       
         [HttpPost]
-        [Route("add")]
-        public IHttpActionResult Add(Service service)
+        [Route("publish")]
+        public IHttpActionResult publish(Service service)
         {
             List<Service> services;
             projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -54,6 +54,48 @@ namespace Registry.Controllers
              
             }
             return Ok(service);
+        }
+
+        [HttpGet]
+        [Route("search/{searchText}")]
+        [Route("search")]
+        public IHttpActionResult search(string searchText)
+        {
+            List<Service> services;
+            List<Service> returnList = new List<Service>();
+            projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            registerFile = projectDirectory + "\\" + "services.txt";
+
+            if (!File.Exists(registerFile))
+            {
+                return NotFound();
+            } else
+            {
+                string data = "";
+                string line = "";
+                using (StreamReader sr = new StreamReader(registerFile))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        data += line;
+                    }
+                }
+                services = JsonConvert.DeserializeObject<List<Service>>(data);
+                foreach (Service service in services)
+                {
+                    if (service.Name.ToLower().Contains(searchText.ToLower()))
+                    {
+                        returnList.Add(service);
+                    }
+                }
+                if (returnList.Count > 0)
+                {
+                    return Ok(returnList);
+                } else
+                {
+                    return NotFound();
+                }
+            }
         }
     }
 }
