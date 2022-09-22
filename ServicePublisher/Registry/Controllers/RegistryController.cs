@@ -2,6 +2,7 @@
 using Registry.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,7 +10,9 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
+using System.Web.UI.WebControls;
 using static System.Net.WebRequestMethods;
+using EndPoint = Registry.Models.EndPoint;
 using File = System.IO.File;
 
 namespace Registry.Controllers
@@ -91,6 +94,98 @@ namespace Registry.Controllers
                 if (returnList.Count > 0)
                 {
                     return Ok(returnList);
+                } else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [HttpGet]
+        [Route("getall")]
+        public IHttpActionResult getAll()
+        {
+            List<Service> services;
+            projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            registerFile = projectDirectory + "\\" + "services.txt";
+
+            if (!File.Exists(registerFile))
+            {
+                return NotFound();
+            }
+            else
+            {
+                string data = "";
+                string line = "";
+                using (StreamReader sr = new StreamReader(registerFile))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        data += line;
+                    }
+                }
+                services = JsonConvert.DeserializeObject<List<Service>>(data);
+    
+                if (services.Count > 0)
+                {
+                    return Ok(services);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
+
+        [HttpDelete]
+        [Route("delete")]
+        public IHttpActionResult Delete(EndPoint endPoint)
+        {
+            
+            List<Service> services;
+            projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            registerFile = projectDirectory + "\\" + "services.txt";
+
+            if (!File.Exists(registerFile))
+            {
+                return NotFound();
+            } else
+            {
+                string data = "";
+                string line = "";
+                using (StreamReader sr = new StreamReader(registerFile))
+                {
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        data += line;
+                    }
+                }
+                services = JsonConvert.DeserializeObject<List<Service>>(data);
+                Boolean found = false;
+                Service tempService = null;
+                foreach (Service service in services)
+                {
+                    if (service.APIEndpoint.ToLower().Equals(endPoint.Value.ToLower()))
+                    {
+                        tempService = service;
+                        found = true;
+                    }
+                }
+                if (found)
+                {
+                    services.Remove(tempService);
+                    if (services.Count == 0)
+                    {
+                        File.Delete(registerFile);
+                    } else
+                    {
+                        using (StreamWriter sw = File.CreateText(registerFile))
+                        {
+                            string json = JsonConvert.SerializeObject(services, Formatting.Indented);
+                            sw.WriteLine(json);
+                        }
+                    }
+                    return Ok();
                 } else
                 {
                     return NotFound();
