@@ -37,24 +37,15 @@ namespace Authenticator
             return instance;
         }
 
-        //ADD A NEW USER IF USER WITH EXACT USERNAME DOES NOT EXIST ALREADY
+        //ADD A NEW USER IF A USER WITH EXACT USERNAME DOES NOT EXIST 
         public String Register(String name, String password)
         {
             if(!CheckUserExists(name))
             {
                 WriteFile(name, password, registerFile);
-                return "Successfully registered!";
-
-            }else{
-
-                //TO DO : CHECK
-                CustomFaults exception = new CustomFaults
-                {
-                    ExceptionMessage = "Username already exists. Please choose another username",
-                    ExceptionDescription = "Fault occured in Register - Authenticator"
-                };
-                throw new FaultException<CustomFaults>(exception, new FaultReason(exception.ExceptionMessage));
+                return "Successfully Registered";
             }
+            return "Failed to Register";
         }
 
         //ISSUES A TOKEN FOR A VALID REGISTERED USER
@@ -68,13 +59,7 @@ namespace Authenticator
                 return number;
             }
 
-            //TO DO : CHECK
-            CustomFaults exception = new CustomFaults
-            {
-                ExceptionMessage = "Your username or password do not match",
-                ExceptionDescription = "Fault occured in Login - Authenticator"
-            };
-            throw new FaultException<CustomFaults>(exception, new FaultReason(exception.ExceptionMessage));
+            return -1;
         }
 
         public String Validate(int token)

@@ -12,6 +12,5 @@ namespace RegistryBusinessTier.Models
         public string APIEndpoint { get; set; }
         public int numOperands { get; set; }
         public string operandtype { get; set; }
-
     }
 }

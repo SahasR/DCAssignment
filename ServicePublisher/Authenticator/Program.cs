@@ -11,7 +11,7 @@ namespace Authenticator
     {
         static void Main(string[] args)
         {
-            bool timerSet = false; int timeout = 0; ServiceHost host;
+            bool timerSet = false; int timeout = 0; 
 
             while (!timerSet)
             {
@@ -38,7 +38,7 @@ namespace Authenticator
 
             //SETTING UP THE AUTHENTICATOR
             NetTcpBinding tcp = new NetTcpBinding();
-            host = new ServiceHost(typeof(AuthInterfaceImpl));
+            ServiceHost host = new ServiceHost(typeof(AuthInterfaceImpl));
             host.AddServiceEndpoint(typeof(AuthInterface), tcp, "net.tcp://0.0.0.0:8100/AuthenticatorService");
             host.Open();
             Console.WriteLine("Authenticator is Online");

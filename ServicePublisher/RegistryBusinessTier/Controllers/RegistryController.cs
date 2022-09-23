@@ -24,25 +24,27 @@ namespace RegistryBusinessTier.Controllers
         [Route("publish")]
         public IHttpActionResult publish(addServiceObject serviceObject)
         {
-            if (checkToken(serviceObject.token))
+            if(checkToken(serviceObject.token))
             {
                 Service service = serviceObject.service;
                 RestRequest restRequest = new RestRequest("Registry/publish");
                 restRequest.AddBody(service);
                 RestResponse restResponse = restClient.Post(restRequest);
-                if (restResponse.IsSuccessStatusCode)
+
+                if(restResponse.IsSuccessStatusCode)
                 {
                     return Ok();
-                } else
-                {
+
+                }else{
+
                     return NotFound();
                 }
-            } else
-            {
+
+            }else{
+
                 BadToken badToken = new BadToken();
                 return Content(HttpStatusCode.Unauthorized, badToken);
             }
-            return Ok();
         }
 
         [HttpGet]
@@ -50,20 +52,23 @@ namespace RegistryBusinessTier.Controllers
         [Route("search")]
         public IHttpActionResult search(int token, string searchText)
         {
-            if (checkToken(token))
+            if(checkToken(token))
             {
                 RestRequest restRequest = new RestRequest("Registry/search/" + searchText);
                 RestResponse restResponse = restClient.Get(restRequest);
+
                 if (restResponse.StatusCode == HttpStatusCode.OK)
                 {
                     List<Service> service = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
                     return Ok(service);
-                } else
-                {
+
+                }else{
+
                     return NotFound();
                 }
-            } else 
-            { 
+
+            }else{
+                
                 BadToken badToken = new BadToken();
                 return Content(HttpStatusCode.Unauthorized, badToken);
             }
@@ -74,7 +79,7 @@ namespace RegistryBusinessTier.Controllers
        [Route("getall")]
        public IHttpActionResult getAll(int token)
        {
-          if (checkToken(token))
+          if(checkToken(token))
           {
                 RestRequest restRequest = new RestRequest("Registry/getall");
                 RestResponse restResponse = restClient.Get(restRequest);
@@ -86,9 +91,9 @@ namespace RegistryBusinessTier.Controllers
                 {
                     return NotFound();
                 }
-            } 
-          else
-          {
+
+          }else{
+
             BadToken badToken = new BadToken();
             return Content(HttpStatusCode.Unauthorized, badToken);
           }
@@ -104,17 +109,18 @@ namespace RegistryBusinessTier.Controllers
                 RestRequest restRequest = new RestRequest("Registry/delete");
                 restRequest.AddBody(endpoint);
                 RestResponse restResponse = restClient.Delete(restRequest);
+
                 if (restResponse.IsSuccessStatusCode)
                 {
                     return Ok();
-                }
-                else
-                {
+
+                }else{
+
                     return NotFound();
                 }
-            }
-            else
-            {
+
+            }else{
+
               BadToken badToken = new BadToken();
               return Content(HttpStatusCode.Unauthorized, badToken);
             }
@@ -128,10 +134,13 @@ namespace RegistryBusinessTier.Controllers
             string URL = "net.tcp://localhost:8100/AuthenticatorService";
             foobFactory = new ChannelFactory<AuthInterface>(tcp,URL);
             foob = foobFactory.CreateChannel();
-            if (foob.Validate(token).Equals("Validated")){
-                return true;
-            } else
+
+            if (foob.Validate(token).Equals("Validated"))
             {
+                return true;
+
+            }else{
+
                 return false;
             }
             

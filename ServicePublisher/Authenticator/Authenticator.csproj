@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AuthInterface.cs" />
     <Compile Include="AuthInterfaceImpl.cs" />
+    <Compile Include="Instance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
