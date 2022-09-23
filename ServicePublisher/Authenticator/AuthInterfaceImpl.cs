@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using CustomException;
+using System.Xml.Linq;
 
 namespace Authenticator
 {
@@ -21,10 +22,6 @@ namespace Authenticator
             projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.FullName;
             registerFile = projectDirectory + "\\" + "RegisterInfo.txt";
             tokenFile = projectDirectory + "\\" + "TokenInfo.txt";
-
-            //CREATING A TEXT FILE TO STORE USER AND TOKEN INFORMATION
-            using (StreamWriter sw = File.CreateText(registerFile)) {}
-            using (StreamWriter sw = File.CreateText(tokenFile)) {}
         }
 
         //TO ACCESS THE SAME LOCAL TEXT FILES WE DESIGNED THE AUTHENTICATOR AS A SINGLETON
@@ -40,6 +37,11 @@ namespace Authenticator
         //ADD A NEW USER IF A USER WITH EXACT USERNAME DOES NOT EXIST 
         public String Register(String name, String password)
         {
+            if (!File.Exists(registerFile))
+            {
+                using(StreamWriter sw = File.CreateText(registerFile)){ }
+            }
+
             if(!CheckUserExists(name))
             {
                 WriteFile(name, password, registerFile);
@@ -51,14 +53,18 @@ namespace Authenticator
         //ISSUES A TOKEN FOR A VALID REGISTERED USER
         public int Login(String name, String password)
         {
-            if(CheckValidUser(name, password))
+            if(!File.Exists(tokenFile))
+            {
+                using (StreamWriter sw = File.CreateText(tokenFile)) { }
+            }
+
+            if (CheckValidUser(name, password))
             {
                 Random random = new Random();
                 int number = random.Next(10000000, 99999999);
                 WriteFile(name, number.ToString(), tokenFile);
                 return number;
             }
-
             return -1;
         }
 
@@ -155,9 +161,12 @@ namespace Authenticator
         }
 
         // CLEARS THE FILE THAT CONTAINS ALL GENERATED TOKENS
-        private void ClearToken()
+        private void ClearTokens()
         {
-            File.WriteAllText(tokenFile, String.Empty);
+            if (!File.Exists(tokenFile))
+            {
+                File.Delete(tokenFile);
+            }
         }
     }
 }
