@@ -1,30 +1,27 @@
-﻿using System;
+﻿using Authenticator;
+using CustomException;
+using InstanceLibrary;
+using Newtonsoft.Json;
+using RegistryBusinessTier.Models;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ServiceModel;
-using CustomException;
-using Authenticator;
 using System.Threading.Tasks;
-using RestSharp;
-using static System.Net.WebRequestMethods;
-using RegistryBusinessTier.Models;
-using Newtonsoft.Json;
-using System.Reflection.Emit;
-using InstanceLibrary;
 
 namespace ServicePublisher
 {
     internal class Services
     {
-        private int token = -1; 
-        private static string URL = "http://localhost:57446/"; 
-        
+        private int token = -1;
+        private static string URL = "http://localhost:57446/";
+
         public void Registration(string userName, string password)
         {
             AuthInterface authenticator = Instance.getInterface();
             string validation = authenticator.Register(userName, password);
-            Console.WriteLine(validation);  
+            Console.WriteLine(validation);
         }
 
         public void Login(string userName, string password)
@@ -33,11 +30,13 @@ namespace ServicePublisher
             int token = authenticator.Login(userName, password);
             SetToken(token);
 
-            if(token == -1)
+            if (token == -1)
             {
                 Console.WriteLine("Login Failed");
 
-            }else{
+            }
+            else
+            {
 
                 Console.WriteLine("Login Successful. Token: " + token);
             }
@@ -55,7 +54,7 @@ namespace ServicePublisher
                 isValid = operandType.ToLower().Equals("integer") || operandType.ToLower().Equals("double");
                 Console.WriteLine(isValid);
 
-                if(!isValid)
+                if (!isValid)
                 {
                     CustomFaults error = new CustomFaults
                     {
@@ -68,7 +67,7 @@ namespace ServicePublisher
                 //CHECK IF THE URL ENTERED BY THE USER IS ACTUALLY A VALID URL
                 isValid = CheckURLValid(endpoint);
 
-                if(isValid)
+                if (isValid)
                 {
                     RestClient client = new RestClient(URL);
                     RestRequest request = new RestRequest("Registry/publish", Method.Post);
@@ -83,25 +82,31 @@ namespace ServicePublisher
                     addServiceObject serviceObject = new addServiceObject();
                     serviceObject.service = service;
                     serviceObject.token = GetToken();
-                  
+
                     request.AddJsonBody(serviceObject);
                     RestResponse response = client.Execute(request);
 
-                    if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
                         BadToken token = JsonConvert.DeserializeObject<BadToken>(response.Content);
                         Console.WriteLine("Status: " + token.Status + "Reason: " + token.Reason);
 
-                    }else if(response.StatusCode == System.Net.HttpStatusCode.NotFound){
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
 
                         Console.WriteLine("Failed to publish service");
 
-                    }else if (response.StatusCode == System.Net.HttpStatusCode.OK){
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
 
                         Console.WriteLine("Service successfully published");
                     }
 
-                }else{
+                }
+                else
+                {
 
                     CustomFaults error = new CustomFaults
                     {
@@ -111,7 +116,9 @@ namespace ServicePublisher
                     throw error;
                 }
 
-            }catch(FormatException exception){
+            }
+            catch (FormatException exception)
+            {
 
                 CustomFaults error = new CustomFaults
                 {
@@ -137,7 +144,7 @@ namespace ServicePublisher
                 endpointObject endObject = new endpointObject();
                 endObject.token = GetToken();
                 endObject.endpoint = end;
-                
+
                 request.AddJsonBody(endObject);
                 RestResponse response = client.Execute(request);
 
@@ -146,16 +153,22 @@ namespace ServicePublisher
                     BadToken token = JsonConvert.DeserializeObject<BadToken>(response.Content);
                     Console.WriteLine("Status: " + token.Status + "Reason: " + token.Reason);
 
-                }else if (response.StatusCode == System.Net.HttpStatusCode.NotFound){
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
 
                     Console.WriteLine("Failed to unpublish service");
 
-                }else if (response.StatusCode == System.Net.HttpStatusCode.OK){
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
 
                     Console.WriteLine("Service successfully unpublished");
                 }
 
-            }else{
+            }
+            else
+            {
 
                 CustomFaults error = new CustomFaults
                 {

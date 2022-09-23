@@ -1,9 +1,10 @@
 ﻿using CustomException;
+using RegistryBusinessTier.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServicePublisher
@@ -34,17 +35,23 @@ namespace ServicePublisher
                     {
                         Usage();
 
-                    }else{
+                    }
+                    else
+                    {
 
                         Menu(userInput);
                     }
 
-                }catch(FormatException error){
+                }
+                catch (FormatException error)
+                {
 
                     Console.WriteLine(error.Message);
                     Usage();
 
-                }catch(CustomFaults error){
+                }
+                catch (CustomFaults error)
+                {
 
                     Console.WriteLine(error.ExceptionMessage);
                     Console.WriteLine();
@@ -130,8 +137,3 @@ namespace ServicePublisher
         }
     }
 }
-
-
-        
-
-
