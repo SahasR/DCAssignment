@@ -10,10 +10,13 @@ namespace Authenticator
 {
     internal class Program
     {
+        private static System.Threading.Timer clearTimer = null; 
+        private static AuthInterfaceImpl impl; private static int timeout;
+
         static void Main(string[] args)
         {
-            bool timerSet = false; int timeout = 0;
-
+            bool timerSet = false; 
+           
             while (!timerSet)
             {
                 /* QUERY USER FOR THE NO.OF MINUTES FOR CLEAN-UP */
@@ -29,12 +32,14 @@ namespace Authenticator
 
                     }else{ Console.WriteLine("Time has to be greater than zero!"); }
 
-                }catch (FormatException error) { Console.WriteLine(error.Message); }
+                }catch(FormatException error) { Console.WriteLine(error.Message); }
             }
 
-            AuthInterfaceImpl impl = AuthInterfaceImpl.getInstance();
+            //TURNING UP THE AUTHENTICATOR
+            impl = AuthInterfaceImpl.getInstance();
            
             //CLEARING TOKENS USING MULTI THREADING
+            CreateStartTimer();
 
             //SETTING UP THE AUTHENTICATOR
             NetTcpBinding tcp = new NetTcpBinding();
@@ -43,7 +48,24 @@ namespace Authenticator
             host.Open();
             Console.WriteLine("Authenticator is Online");
             Console.ReadLine();
+            StopTimer();
             host.Close();
+        }
+        private static void CreateStartTimer()
+        {
+            TimeSpan InitialInterval = new TimeSpan(0, 0, 5);
+            TimeSpan RegularInterval = new TimeSpan(0, timeout, 0);
+            clearTimer = new System.Threading.Timer(ClearFiles, null, InitialInterval, RegularInterval);
+        }
+        private static void ClearFiles(object state)
+        {
+            impl.ClearTokens();
+            Console.WriteLine("Clearing Tokens...");
+        }
+        private static void StopTimer()
+        {
+            clearTimer.Change(System.Threading.Timeout.Infinite,System.Threading.Timeout.Infinite);
+            clearTimer.Dispose();
         }
     }
 }

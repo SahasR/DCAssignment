@@ -88,13 +88,14 @@ namespace RegistryBusinessTier.Controllers
                 {
                     List<Service> serviceList = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
                     return Ok(serviceList);
-                } else
+                } 
+                else
                 {
                     return NotFound();
                 }
-
-          }else{
-
+          }
+          else
+          {
             BadToken badToken = new BadToken();
             return Content(HttpStatusCode.Unauthorized, badToken);
           }
@@ -114,14 +115,14 @@ namespace RegistryBusinessTier.Controllers
                 if (restResponse.IsSuccessStatusCode)
                 {
                     return Ok();
-
-                }else{
-
+                }
+                else
+                {
                     return NotFound();
                 }
-
-            }else{
-
+            }
+            else
+            {
               BadToken badToken = new BadToken();
               return Content(HttpStatusCode.Unauthorized, badToken);
             }

@@ -14,7 +14,7 @@
         <Label Content="Password: " HorizontalAlignment="Left" Margin="27,127,0,0" VerticalAlignment="Top" Width="83"/>
         <TextBox x:Name ="UserNameBox" HorizontalAlignment="Left" Margin="110,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name ="PasswordBox" HorizontalAlignment="Left" Margin="110,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <Label Content="Your Token: " HorizontalAlignment="Left" Margin="27,230,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label Content="Your Token: " HorizontalAlignment="Left" Margin="27,230,0,0"  VerticalAlignment="Top" Width="83"/>
         <TextBlock x:Name ="TokenBox" HorizontalAlignment="Left" Margin="115,235,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Width="145"/>
         <ProgressBar x:Name ="Progressbar" Margin="27,276,540,145" />
 

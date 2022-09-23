@@ -163,7 +163,7 @@ namespace Authenticator
         // CLEARS THE FILE THAT CONTAINS ALL GENERATED TOKENS
         public void ClearTokens()
         {
-            if (!File.Exists(tokenFile))
+            if(File.Exists(tokenFile))
             {
                 File.Delete(tokenFile);
             }

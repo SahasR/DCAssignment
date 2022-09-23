@@ -104,7 +104,6 @@ namespace ServicePublisher
                 }
                 else
                 {
-
                     CustomFaults error = new CustomFaults
                     {
                         ExceptionMessage = "Not a valid base URL format\n eg:- http://localhost:63278/",
@@ -112,11 +111,9 @@ namespace ServicePublisher
                     };
                     throw error;
                 }
-
             }
             catch (FormatException exception)
             {
-
                 CustomFaults error = new CustomFaults
                 {
                     ExceptionMessage = "Input type for number of operands must be an integer",
@@ -149,24 +146,18 @@ namespace ServicePublisher
                 {
                     BadToken token = JsonConvert.DeserializeObject<BadToken>(response.Content);
                     Console.WriteLine("Status: " + token.Status + "Reason: " + token.Reason);
-
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
-
                     Console.WriteLine("Failed to unpublish service");
-
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-
                     Console.WriteLine("Service successfully unpublished");
                 }
-
             }
             else
             {
-
                 CustomFaults error = new CustomFaults
                 {
                     ExceptionMessage = "Not a valid base URL format eg:- http://localhost:63278/",
