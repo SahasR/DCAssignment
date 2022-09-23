@@ -42,7 +42,6 @@ namespace RegistryBusinessTier.Controllers
                 BadToken badToken = new BadToken();
                 return Content(HttpStatusCode.Unauthorized, badToken);
             }
-            return Ok();
         }
 
         [HttpGet]
