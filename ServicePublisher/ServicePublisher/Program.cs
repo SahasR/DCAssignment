@@ -66,9 +66,8 @@ namespace ServicePublisher
 
         static void Menu(int userInput)
         {
-            Services services = new Services();
             string userName; string password; string endpoint;
-
+            
             switch (userInput)
             {
                 case 1:
@@ -80,7 +79,7 @@ namespace ServicePublisher
                     Console.Write("Enter password: ");
                     password = Console.ReadLine();
 
-                    services.Registration(userName, password);
+                    Services.Registration(userName, password);
                     break;
 
                 case 2:
@@ -92,7 +91,7 @@ namespace ServicePublisher
                     Console.Write("Enter password: ");
                     password = Console.ReadLine();
 
-                    services.Login(userName, password);
+                    Services.Login(userName, password);
                     break;
 
                 case 3:
@@ -113,7 +112,7 @@ namespace ServicePublisher
                     Console.Write("Enter an operand type (integer/double): ");
                     string typeOperands = Console.ReadLine();
 
-                    services.Publish(name, description, endpoint, numOperands, typeOperands);
+                    Services.Publish(name, description, endpoint, numOperands, typeOperands);
                     break;
 
                 case 4:
@@ -121,7 +120,7 @@ namespace ServicePublisher
 
                     Console.Write("Enter an API endpoint: ");
                     endpoint = Console.ReadLine();
-                    services.Unpublish(endpoint);
+                    Services.Unpublish(endpoint);
                     break;
 
                 case 5:

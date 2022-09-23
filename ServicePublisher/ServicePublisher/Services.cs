@@ -15,26 +15,22 @@ namespace ServicePublisher
 {
     internal class Services
     {
-        private int token = -1;
+        private static int token = -1;
         private static string URL = "http://localhost:57446/";
-        AuthInterface authenticator;
-
-        public Services()
+        static AuthInterface authenticator;
+       
+        public static void Registration(string userName, string password)
         {
             authenticator = Instance.getInterface();
-        }
-       
-        public void Registration(string userName, string password)
-        {
             string validation = authenticator.Register(userName, password);
             Console.WriteLine(validation);
         }
 
-        public void Login(string userName, string password)
+        public static void Login(string userName, string password)
         {
+            authenticator = Instance.getInterface();
             token = authenticator.Login(userName, password);
-            SetToken(token);
-
+           
             if (token == -1)
             {
                 Console.WriteLine("Login Failed");
@@ -45,7 +41,7 @@ namespace ServicePublisher
             }
         }
 
-        public void Publish(string serviceName, string description, string endpoint, string operandNum, string operandType)
+        public static void Publish(string serviceName, string description, string endpoint, string operandNum, string operandType)
         {
             bool isValid; int numOperands;
             try
@@ -55,8 +51,7 @@ namespace ServicePublisher
 
                 //CHECK IF THE USER INPUT OPERAND TYPE IS EITHER INTEGER OR DOUBLE
                 isValid = operandType.ToLower().Equals("integer") || operandType.ToLower().Equals("double");
-                Console.WriteLine(isValid);
-
+            
                 if (!isValid)
                 {
                     CustomFaults error = new CustomFaults
@@ -86,10 +81,11 @@ namespace ServicePublisher
                     //ADD TOKEN BEFORE SENDING TO REGISTRY SERVICE
                     addServiceObject serviceObject = new addServiceObject();
                     serviceObject.service = service;
-                    serviceObject.token = GetToken();
-
+                    serviceObject.token = token;
+                  
                     request.AddJsonBody(serviceObject);
                     RestResponse response = client.Execute(request);
+                    Console.WriteLine(response.Content);
 
                     if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                     {
@@ -130,7 +126,7 @@ namespace ServicePublisher
             }
         }
 
-        public void Unpublish(string endpoint)
+        public static void Unpublish(string endpoint)
         {
             bool isValid = CheckURLValid(endpoint);
 
@@ -181,18 +177,18 @@ namespace ServicePublisher
         }
 
         //GETTERS AND SETTERS FOR THE TOKEN
-        public int GetToken()
+        public static int GetToken()
         {
             return token;
         }
 
-        public void SetToken(int pToken)
+        public static void SetToken(int pToken)
         {
             token = pToken;
         }
 
         //CHECK IF THE INPUT STRING CONFORMS TO URL STYLE
-        private bool CheckURLValid(string source)
+        private static bool CheckURLValid(string source)
         {
             Uri uriResult;
             return Uri.TryCreate(source, UriKind.Absolute, out uriResult) && uriResult.Scheme == Uri.UriSchemeHttp;
