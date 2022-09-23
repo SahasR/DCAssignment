@@ -1,4 +1,5 @@
 ﻿using Authenticator;
+using InstanceLibrary;
 using Newtonsoft.Json;
 using RestSharp;
 using ServiceProviderBusinessTier.Models;
@@ -55,12 +56,7 @@ namespace ServiceProviderBusinessTier.Controllers
 
         private Boolean checkToken(int token)
         {
-            AuthInterface foob;
-            ChannelFactory<AuthInterface> foobFactory;
-            NetTcpBinding tcp = new NetTcpBinding();
-            string URL = "net.tcp://localhost:8100/AuthenticatorService";
-            foobFactory = new ChannelFactory<AuthInterface>(tcp,URL);
-            foob = foobFactory.CreateChannel();
+            AuthInterface foob = Instance.getInterface();
             if (foob.Validate(token).Equals("Validated")){
                 return true;
             } else

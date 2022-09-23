@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="RestSharp" Version="108.0.2" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.0" />
@@ -16,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Authenticator\Authenticator.csproj" />
     <ProjectReference Include="..\CustomException\CustomException.csproj" />
+    <ProjectReference Include="..\InstanceLibrary\InstanceLibrary.csproj" />
     <ProjectReference Include="..\RegistryBusinessTier\RegistryBusinessTier.csproj" />
   </ItemGroup>
 

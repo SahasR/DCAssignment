@@ -288,6 +288,10 @@
       <Project>{18d9d2ac-4be8-47fc-af7f-272e36949520}</Project>
       <Name>Authenticator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\InstanceLibrary\InstanceLibrary.csproj">
+      <Project>{E9DA2178-1891-43F1-A267-ED9A9FEE193D}</Project>
+      <Name>InstanceLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

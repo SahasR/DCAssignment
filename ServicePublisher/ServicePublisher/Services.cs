@@ -11,6 +11,7 @@ using static System.Net.WebRequestMethods;
 using RegistryBusinessTier.Models;
 using Newtonsoft.Json;
 using System.Reflection.Emit;
+using InstanceLibrary;
 
 namespace ServicePublisher
 {
