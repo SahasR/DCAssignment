@@ -95,8 +95,21 @@ namespace ServicePublisher
                 case 3:
                     Console.WriteLine(" Publish a service");
 
+                    Console.Write(" Name of the service you wish to publish: ");
+                    string name = Console.ReadLine();
+
+                    Console.Write(" Description for the service: ");
+                    string description = Console.ReadLine();
+
                     Console.Write(" Enter an API endpoint: ");
                     endpoint = Console.ReadLine();
+
+                    Console.Write(" Number of operands in the service: ");
+                    string numOperands = Console.ReadLine();
+
+                    Console.Write(" Enter an operand type (integer/double): ");
+                    string typeOperands = Console.ReadLine();
+
                     //services.Publish(endpoint);
                     break;
 

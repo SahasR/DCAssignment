@@ -6,7 +6,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using CustomException;
-using System.Xml.Linq;
 
 namespace Authenticator
 {
