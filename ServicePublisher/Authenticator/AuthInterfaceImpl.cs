@@ -157,11 +157,11 @@ namespace Authenticator
 
         public void SetTimer(double timer)
         {
-            this.timer = timer * 60.0 * 1000.0;
+            this.timer = timer * 60 * 1000.0;
         }
 
         // CLEARS THE FILE THAT CONTAINS ALL GENERATED TOKENS
-        private void ClearTokens()
+        public void ClearTokens()
         {
             if (!File.Exists(tokenFile))
             {

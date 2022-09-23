@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Authenticator
 {
@@ -11,7 +12,7 @@ namespace Authenticator
     {
         static void Main(string[] args)
         {
-            bool timerSet = false; int timeout = 0; 
+            bool timerSet = false; int timeout = 0;
 
             while (!timerSet)
             {
@@ -32,8 +33,7 @@ namespace Authenticator
             }
 
             AuthInterfaceImpl impl = AuthInterfaceImpl.getInstance();
-            impl.SetTimer(timeout);
-
+           
             //CLEARING TOKENS USING MULTI THREADING
 
             //SETTING UP THE AUTHENTICATOR
@@ -45,7 +45,5 @@ namespace Authenticator
             Console.ReadLine();
             host.Close();
         }
-
-
     }
 }
