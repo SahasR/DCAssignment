@@ -35,23 +35,17 @@ namespace ServicePublisher
                     {
                         Usage();
 
-                    }
-                    else
-                    {
+                    }else{
 
                         Menu(userInput);
                     }
 
-                }
-                catch (FormatException error)
-                {
+                }catch (FormatException error){
 
                     Console.WriteLine(error.Message);
                     Usage();
 
-                }
-                catch (CustomFaults error)
-                {
+                }catch (CustomFaults error){
 
                     Console.WriteLine(error.ExceptionMessage);
                     Console.WriteLine();

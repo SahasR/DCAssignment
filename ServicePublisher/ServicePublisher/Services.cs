@@ -4,6 +4,7 @@ using InstanceLibrary;
 using Newtonsoft.Json;
 using RegistryBusinessTier.Models;
 using RestSharp;
+using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,28 +17,30 @@ namespace ServicePublisher
     {
         private int token = -1;
         private static string URL = "http://localhost:57446/";
+        AuthInterface authenticator;
 
+        public Services()
+        {
+            authenticator = Instance.getInterface();
+        }
+       
         public void Registration(string userName, string password)
         {
-            AuthInterface authenticator = Instance.getInterface();
             string validation = authenticator.Register(userName, password);
             Console.WriteLine(validation);
         }
 
         public void Login(string userName, string password)
         {
-            AuthInterface authenticator = Instance.getInterface();
-            int token = authenticator.Login(userName, password);
+            token = authenticator.Login(userName, password);
             SetToken(token);
 
             if (token == -1)
             {
                 Console.WriteLine("Login Failed");
-
             }
             else
             {
-
                 Console.WriteLine("Login Successful. Token: " + token);
             }
         }
@@ -73,12 +76,14 @@ namespace ServicePublisher
                     RestRequest request = new RestRequest("Registry/publish", Method.Post);
                     Service service = new Service();
 
+                    //CREATE A NEW SERVICE OBJECT
                     service.Name = serviceName;
                     service.Description = description;
                     service.APIEndpoint = endpoint;
                     service.numOperands = numOperands;
                     service.operandtype = operandType;
 
+                    //ADD TOKEN BEFORE SENDING TO REGISTRY SERVICE
                     addServiceObject serviceObject = new addServiceObject();
                     serviceObject.service = service;
                     serviceObject.token = GetToken();
@@ -91,15 +96,11 @@ namespace ServicePublisher
                         BadToken token = JsonConvert.DeserializeObject<BadToken>(response.Content);
                         Console.WriteLine("Status: " + token.Status + "Reason: " + token.Reason);
 
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    {
+                    }else if (response.StatusCode == System.Net.HttpStatusCode.NotFound){
 
                         Console.WriteLine("Failed to publish service");
 
-                    }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    {
+                    }else if (response.StatusCode == System.Net.HttpStatusCode.OK){
 
                         Console.WriteLine("Service successfully published");
                     }

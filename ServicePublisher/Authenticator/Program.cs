@@ -45,5 +45,7 @@ namespace Authenticator
             Console.ReadLine();
             host.Close();
         }
+
+
     }
 }
