@@ -215,6 +215,10 @@ namespace ClientGUI
                 currToken = token;
                 return token;
             }
+            catch (EndpointNotFoundException)
+            {
+                System.Windows.Forms.MessageBox.Show("Authenticator Services seems down", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (FaultException<AuthenticatorFaults> error)
             {
                 System.Windows.Forms.MessageBox.Show(error.Detail.ExceptionMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
