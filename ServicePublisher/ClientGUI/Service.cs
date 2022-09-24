@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClientGUI
 {
+    //TEMPLATES FOR .NET JSON SERIALIZERS
     public class Service
     {
         public string Name { get; set; }

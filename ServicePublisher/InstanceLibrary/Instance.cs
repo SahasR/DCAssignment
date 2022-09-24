@@ -11,6 +11,8 @@ namespace InstanceLibrary
     public class Instance
     {
         private static AuthInterface authInterface;
+
+        //CREATES A SINGLE INSTANCE OF AN AUTHENTICATOR INTERFACE THROUGH WHICH SERVICES MAY CONNECT
         public static AuthInterface getInterface()
         {
             ChannelFactory<AuthInterface> foobFactory;

@@ -51,6 +51,8 @@ namespace Authenticator
             StopTimer();
             host.Close();
         }
+
+        //FUNCTIONS TO PERIODICALLY CLEAN UP GENERATED TOKENS USING MULTI-THREADING
         private static void CreateStartTimer()
         {
             TimeSpan InitialInterval = new TimeSpan(0, timeout, 0);
@@ -62,6 +64,7 @@ namespace Authenticator
             impl.ClearTokens();
             Console.WriteLine("Clearing Tokens...");
         }
+        //FREE ALL RESOURCES HELD BY THE TIMER
         private static void StopTimer()
         {
             clearTimer.Change(System.Threading.Timeout.Infinite,System.Threading.Timeout.Infinite);

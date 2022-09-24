@@ -83,6 +83,7 @@ namespace Authenticator
 
         public String Validate(int token)
         {
+            //CHECK WHETHER THE TOKEN IS VALID AND NOT EXPIRED
             if(CheckToken(token))
             {
                 return "Validated";

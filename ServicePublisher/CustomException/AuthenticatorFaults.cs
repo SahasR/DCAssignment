@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomException
 {
+    //FAULT EXCEPTIONS THROWN BY THE AUTHENTICATOR
     [DataContract]
     public class AuthenticatorFaults
     {
