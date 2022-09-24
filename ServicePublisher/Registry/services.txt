@@ -26,5 +26,12 @@
     "APIEndpoint": "http://localhost:63219/TwoNumbers/multiply/",
     "numOperands": 2,
     "operandtype": "integer"
+  },
+  {
+    "Name": "DoubleThree",
+    "Description": "add three doubles",
+    "APIEndpoint": "http://localhost:63219/Double/add",
+    "numOperands": 3,
+    "operandtype": "double"
   }
 ]

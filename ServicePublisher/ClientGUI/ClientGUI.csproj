@@ -59,6 +59,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -137,6 +138,10 @@
     <ProjectReference Include="..\Authenticator\Authenticator.csproj">
       <Project>{18d9d2ac-4be8-47fc-af7f-272e36949520}</Project>
       <Name>Authenticator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomException\CustomException.csproj">
+      <Project>{0D9BCCA0-A487-4990-98B2-DDAB2D7096EA}</Project>
+      <Name>CustomException</Name>
     </ProjectReference>
     <ProjectReference Include="..\InstanceLibrary\InstanceLibrary.csproj">
       <Project>{e9da2178-1891-43f1-a267-ed9a9fee193d}</Project>

@@ -7,6 +7,6 @@ namespace ServiceProvider.Models
 {
     public class DoubleResult
     {
-        public double Value { get; set; }
+        public double value { get; set; }
     }
 }
