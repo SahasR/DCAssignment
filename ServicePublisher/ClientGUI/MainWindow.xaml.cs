@@ -45,7 +45,7 @@ namespace ClientGUI
 
             GUIDisable();
 
-            Task<string> task = new Task<string>(Register);
+            Task<string> task = new Task<string>(AsyncRegister);
             task.Start();
             string result = await task;
             System.Windows.Forms.MessageBox.Show(result, "Registration", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -60,7 +60,7 @@ namespace ClientGUI
 
             GUIDisable();
 
-            Task<int> task = new Task<int>(Login);
+            Task<int> task = new Task<int>(AsyncLogin);
             task.Start();
             int result = await task;
 
@@ -68,14 +68,14 @@ namespace ClientGUI
             GUIEnable();
         }
 
-        private int Login()
+        private int AsyncLogin()
         {
             int token = authenticator.Login(username, password);
             currToken = token;
             return token;
         }
 
-        private string Register()
+        private string AsyncRegister()
         {
             string validation = authenticator.Register(username, password);
             return validation;
@@ -149,7 +149,8 @@ namespace ClientGUI
                 APIBox.Text = service.APIEndpoint;
                 NumParamsBox.Text = service.numOperands.ToString();
                 ParamTypeBox.Text = service.operandtype;
-            } else
+            } 
+            else
             {
                 NameBox.Text = "";
                 DescriptionBox.Text = "";
