@@ -17,7 +17,7 @@ namespace ServiceProvider.Controllers
         [HttpGet]
         public IHttpActionResult Add(int firstNumber, int secondNumber, int thirdNumber)
         {
-            Result result = new Result();
+            IntResult result = new IntResult();
             result.value = firstNumber + secondNumber + thirdNumber;
             return Ok(result);
         }
@@ -27,7 +27,7 @@ namespace ServiceProvider.Controllers
         [HttpGet]
         public IHttpActionResult Multiply(int firstNumber, int secondNumber, int thirdNumber)
         {
-            Result result = new Result();
+            IntResult result = new IntResult();
             result.value = firstNumber * secondNumber * thirdNumber;
             return Ok(result);
         }

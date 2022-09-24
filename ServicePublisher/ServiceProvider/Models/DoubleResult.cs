@@ -5,8 +5,8 @@ using System.Web;
 
 namespace ServiceProvider.Models
 {
-    public class Result
+    public class DoubleResult
     {
-        public int value { get; set; }
+        public double Value { get; set; }
     }
 }
