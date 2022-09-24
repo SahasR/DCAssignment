@@ -138,5 +138,26 @@ namespace ClientGUI
                 listBox.ItemsSource = services;
             }
         }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Service service = listBox.SelectedItem as Service;
+            if (service != null)
+            {
+                NameBox.Text = service.Name;
+                DescriptionBox.Text = service.Description;
+                APIBox.Text = service.APIEndpoint;
+                NumParamsBox.Text = service.numOperands.ToString();
+                ParamTypeBox.Text = service.operandtype;
+            } else
+            {
+                NameBox.Text = "";
+                DescriptionBox.Text = "";
+                APIBox.Text = "";
+                NumParamsBox.Text = "";
+                ParamTypeBox.Text = "";
+            }
+            
+        }
     }
 }

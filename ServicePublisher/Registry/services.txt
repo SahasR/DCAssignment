@@ -1,9 +1,30 @@
 [
   {
-    "Name": "Sahas",
-    "Description": "BuduSaranai",
-    "APIEndpoint": "http://google.com/",
-    "numOperands": 1,
+    "Name": "AddThreeNumbers",
+    "Description": "Add three numbers!",
+    "APIEndpoint": "http://localhost:63219/ThreeNumbers/add",
+    "numOperands": 3,
+    "operandtype": "integer"
+  },
+  {
+    "Name": "MultiplyThreeNumbers",
+    "Description": "You can multiply three numbers",
+    "APIEndpoint": "http://localhost:63219/ThreeNumbers/multiply",
+    "numOperands": 3,
+    "operandtype": "integer"
+  },
+  {
+    "Name": "AddTwoNumbers",
+    "Description": "You can add two numbers",
+    "APIEndpoint": "http://localhost:63219/TwoNumbers/add/",
+    "numOperands": 2,
+    "operandtype": "integer"
+  },
+  {
+    "Name": "MultiplyTwoNumbers",
+    "Description": "Multiplies two numbers",
+    "APIEndpoint": "http://localhost:63219/TwoNumbers/multiply/",
+    "numOperands": 2,
     "operandtype": "integer"
   }
 ]
