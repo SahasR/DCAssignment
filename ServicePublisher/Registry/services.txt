@@ -30,8 +30,8 @@
   {
     "Name": "DoubleThree",
     "Description": "add three doubles",
-    "APIEndpoint": "http://localhost:63219/Double/add",
+    "APIEndpoint": "http://localhost:63219/Decimal/add",
     "numOperands": 3,
-    "operandtype": "double"
+    "operandtype": "decimal"
   }
 ]

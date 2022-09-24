@@ -57,13 +57,13 @@ namespace ServicePublisher
                 numOperands = Int32.Parse(operandNum);
 
                 //CHECK IF THE USER INPUT OPERAND TYPE IS EITHER INTEGER OR DOUBLE
-                isValid = operandType.ToLower().Equals("integer") || operandType.ToLower().Equals("double");
+                isValid = operandType.ToLower().Equals("integer") || operandType.ToLower().Equals("decimal");
             
                 if (!isValid)
                 {
                     CustomFaults error = new CustomFaults
                     {
-                        ExceptionMessage = "Operand types can only be either integer or double",
+                        ExceptionMessage = "Operand types can only be either integer or decimal",
                         ExceptionDescription = "Error thrown in Publish - Service Publisher"
                     };
                     throw error;

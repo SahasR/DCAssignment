@@ -12,15 +12,15 @@ using System.Web.Http;
 
 namespace ServiceProviderBusinessTier.Controllers
 {
-    [RoutePrefix("Double")]
-    public class DoubleController : ApiController
+    [RoutePrefix("Decimal")]
+    public class DecimalController : ApiController
     {
         RestClient restClient = new RestClient("http://localhost:56201/");
 
         [Route("add/{token}/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
-        public IHttpActionResult Add(int token, double firstNumber, double secondNumber, double thirdNumber)
+        public IHttpActionResult Add(int token, decimal firstNumber, decimal secondNumber, decimal thirdNumber)
         {
             if (!checkToken(token))
             {
@@ -29,7 +29,7 @@ namespace ServiceProviderBusinessTier.Controllers
             }
             else
             {
-                RestRequest request = new RestRequest("Double/add/" + firstNumber.ToString() + "/" + secondNumber.ToString() + "/" + thirdNumber.ToString());
+                RestRequest request = new RestRequest("Decimal/add/" + firstNumber.ToString() + "/" + secondNumber.ToString() + "/" + thirdNumber.ToString() + "/");
                 RestResponse response = restClient.Get(request);
                 DoubleResult result = JsonConvert.DeserializeObject<DoubleResult>(response.Content);
                 return Content(HttpStatusCode.OK, result);

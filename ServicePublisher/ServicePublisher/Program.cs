@@ -109,7 +109,7 @@ namespace ServicePublisher
                     Console.Write("Number of operands in the service: ");
                     string numOperands = Console.ReadLine();
 
-                    Console.Write("Enter an operand type (integer/double): ");
+                    Console.Write("Enter an operand type (integer/decimal): ");
                     string typeOperands = Console.ReadLine();
 
                     Services.Publish(name, description, endpoint, numOperands, typeOperands);
