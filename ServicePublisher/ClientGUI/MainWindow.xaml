@@ -33,6 +33,18 @@
         <TextBox x:Name="APIBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="500,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269"/>
         <TextBox x:Name="NumParamsBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="500,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269"/>
         <TextBox x:Name="ParamTypeBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="500,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="269"/>
+        <TextBox x:Name="inputBox1" HorizontalAlignment="Left" Margin="545,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67"/>
+        <TextBox x:Name="inputBox2" HorizontalAlignment="Left" Margin="627,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="inputBox3" HorizontalAlignment="Left" Margin="707,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="inputBox4" HorizontalAlignment="Left" Margin="545,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="67"/>
+        <TextBox x:Name="inputBox5" HorizontalAlignment="Left" Margin="627,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="68"/>
+        <TextBox x:Name="inputBox6" HorizontalAlignment="Left" Margin="707,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="68"/>
+        <TextBox x:Name="inputBox7" HorizontalAlignment="Left" Margin="545,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67"/>
+        <TextBox x:Name="inputBox8" HorizontalAlignment="Left" Margin="627,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="inputBox9" HorizontalAlignment="Left" Margin="707,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <TextBox x:Name="inputBox10" HorizontalAlignment="Left" Margin="545,261,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="67"/>
+        <Button x:Name="testButton" Content="Test!" HorizontalAlignment="Left" Margin="641,292,0,0" VerticalAlignment="Top" Click="testButton_Click"/>
+        <TextBox IsReadOnly="True" x:Name="returnValue" HorizontalAlignment="Left" Margin="601,335,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

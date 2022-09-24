@@ -32,7 +32,7 @@ namespace ServiceProviderBusinessTier.Controllers
             {
                 RestRequest request = new RestRequest("ThreeNumbers/add/" + firstNumber.ToString() + "/" + secondNumber.ToString() + "/" + thirdNumber.ToString());
                 RestResponse response = restClient.Get(request);
-                Result result = JsonConvert.DeserializeObject<Result>(response.Content);
+                IntResult result = JsonConvert.DeserializeObject<IntResult>(response.Content);
                 return Content(HttpStatusCode.OK, result);
             }
         }
@@ -51,7 +51,7 @@ namespace ServiceProviderBusinessTier.Controllers
             {
                 RestRequest request = new RestRequest("ThreeNumbers/multiply/" + firstNumber.ToString() + "/" + secondNumber.ToString() + "/" + thirdNumber.ToString());
                 RestResponse response = restClient.Get(request);
-                Result result = JsonConvert.DeserializeObject<Result>(response.Content);
+                IntResult result = JsonConvert.DeserializeObject<IntResult>(response.Content);
                 return Content(HttpStatusCode.OK, result);
             }
         }
