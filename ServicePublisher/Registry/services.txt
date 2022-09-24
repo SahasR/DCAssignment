@@ -1,0 +1,9 @@
+[
+  {
+    "Name": "Sahas",
+    "Description": "BuduSaranai",
+    "APIEndpoint": "http://google.com/",
+    "numOperands": 1,
+    "operandtype": "integer"
+  }
+]

@@ -8,15 +8,29 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <Button x:Name ="RegisterButton" Content ="Register" HorizontalAlignment="Left" Height="27" Margin="110,169,0,0" VerticalAlignment="Top" Width="67" Click="RegisterButton_Click"/>
-        <Button x:Name ="LoginButton" Content="Login" HorizontalAlignment="Left" Height="27" Margin="193,169,0,0" VerticalAlignment="Top" Width="67" Click="LoginButton_Click"/>
-        <Label Content="User Name: " HorizontalAlignment="Left" Margin="27,81,0,0" VerticalAlignment="Top" Width="83"/>
-        <Label Content="Password: " HorizontalAlignment="Left" Margin="27,127,0,0" VerticalAlignment="Top" Width="83"/>
-        <TextBox x:Name ="UserNameBox" HorizontalAlignment="Left" Margin="110,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <TextBox x:Name ="PasswordBox" HorizontalAlignment="Left" Margin="110,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
-        <Label Content="Your Token: " HorizontalAlignment="Left" Margin="27,230,0,0"  VerticalAlignment="Top" Width="83"/>
-        <TextBlock x:Name ="TokenBox" HorizontalAlignment="Left" Margin="115,235,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Width="145"/>
-        <ProgressBar x:Name ="Progressbar" Margin="27,276,540,145" />
+        <Button x:Name ="RegisterButton" Content ="Register" HorizontalAlignment="Left" Height="27" Margin="110,107,0,0" VerticalAlignment="Top" Width="67" Click="RegisterButton_Click"/>
+        <Button x:Name ="LoginButton" Content="Login" HorizontalAlignment="Left" Height="27" Margin="193,107,0,0" VerticalAlignment="Top" Width="67" Click="LoginButton_Click"/>
+        <Label Content="User Name: " HorizontalAlignment="Left" Margin="27,20,0,0" VerticalAlignment="Top" Width="83"/>
+        <Label Content="Password: " HorizontalAlignment="Left" Margin="27,61,0,0" VerticalAlignment="Top" Width="83"/>
+        <TextBox x:Name ="UserNameBox" HorizontalAlignment="Left" Margin="110,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name ="PasswordBox" HorizontalAlignment="Left" Margin="110,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Label Content="Your Token: " HorizontalAlignment="Left" Margin="27,152,0,0"  VerticalAlignment="Top" Width="83"/>
+        <TextBlock x:Name ="TokenBox" HorizontalAlignment="Left" Margin="110,162,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" Width="145"/>
+        <ProgressBar x:Name ="Progressbar" Margin="27,183,540,238" />
+        <TextBox x:Name="SearchBox" HorizontalAlignment="Left" Margin="496,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="138" RenderTransformOrigin="0.5,0.5" Height="23">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.283"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <Label x:Name="SearchLabel" Content="Search:" HorizontalAlignment="Left" Margin="434,28,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Left" Margin="645,25,0,0" VerticalAlignment="Top" Height="33" Width="52" Click="searchButton_Click"/>
+        <Button x:Name="getAllButton" Content="Get All" HorizontalAlignment="Left" Margin="714,25,0,0" VerticalAlignment="Top" Height="33" Width="62" Click="getAllButton_Click"/>
+        <ListBox x:Name="listBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="498,63,141,269"/>
 
     </Grid>
 </Window>
