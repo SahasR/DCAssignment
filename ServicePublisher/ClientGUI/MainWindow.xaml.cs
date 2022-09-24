@@ -1,5 +1,6 @@
 ﻿using Authenticator;
 using InstanceLibrary;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +31,7 @@ namespace ClientGUI
     {
         private AuthInterface authenticator; private static string username; private static string password;
         private static int currToken;
+        private static List<Service> services;
         public MainWindow()
         {
             InitializeComponent();
@@ -110,7 +113,8 @@ namespace ClientGUI
                 System.Windows.Forms.MessageBox.Show("API Service Seems to be down", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                System.Windows.Forms.MessageBox.Show("Worked!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                services = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
+                listBox.ItemsSource = services;
             }
         }
 
@@ -130,7 +134,8 @@ namespace ClientGUI
             }
             else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                System.Windows.Forms.MessageBox.Show("Worked!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                services = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
+                listBox.ItemsSource = services;
             }
         }
     }
