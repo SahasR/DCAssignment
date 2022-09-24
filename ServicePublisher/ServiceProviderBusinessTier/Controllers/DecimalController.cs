@@ -12,11 +12,12 @@ using System.Web.Http;
 
 namespace ServiceProviderBusinessTier.Controllers
 {
+    //Business Tier to handle decimal values
     [RoutePrefix("Decimal")]
     public class DecimalController : ApiController
     {
         RestClient restClient = new RestClient("http://localhost:56201/");
-
+        //Simple decimal addition between three numbers
         [Route("add/{token}/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
@@ -35,6 +36,8 @@ namespace ServiceProviderBusinessTier.Controllers
                 return Content(HttpStatusCode.OK, result);
             }
         }
+
+        //Checks for a valid token
         private Boolean checkToken(int token)
         {
             AuthInterface foob = Instance.getInterface();

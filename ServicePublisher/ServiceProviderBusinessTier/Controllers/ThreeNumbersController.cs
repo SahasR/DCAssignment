@@ -11,13 +11,14 @@ using System.Net.Http;
 using System.ServiceModel;
 using System.Web.Http;
 
+//BusinessTier for the ThreeNumber Controller in the ServiceProvider
 namespace ServiceProviderBusinessTier.Controllers
 {
     [RoutePrefix("ThreeNumbers")]
     public class ThreeNumbersController : ApiController
     {
         RestClient restClient = new RestClient("http://localhost:56201/");
-
+        //Simple addition of three numbers
         [Route("add/{token}/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
@@ -36,7 +37,7 @@ namespace ServiceProviderBusinessTier.Controllers
                 return Content(HttpStatusCode.OK, result);
             }
         }
-
+        //Simple multiplication of three numbers
         [Route("multiply/{token}/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("multiply")]
         [HttpGet]
@@ -55,6 +56,8 @@ namespace ServiceProviderBusinessTier.Controllers
                 return Content(HttpStatusCode.OK, result);
             }
         }
+
+        //Checks for a valid token
         private Boolean checkToken(int token)
         {
             AuthInterface foob = Instance.getInterface();

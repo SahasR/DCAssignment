@@ -8,9 +8,11 @@ using System.Web.Http;
 
 namespace ServiceProvider.Controllers
 {
+    //Controller that handles Decimals
     [RoutePrefix("Decimal")]
     public class DecimalController : ApiController
     {
+        //Just a simple Decimal Add function to test feasability.
         [Route("add/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]

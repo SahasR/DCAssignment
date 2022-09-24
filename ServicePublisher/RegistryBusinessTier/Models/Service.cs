@@ -5,6 +5,7 @@ using System.Web;
 
 namespace RegistryBusinessTier.Models
 {
+    //Service object passed back from the RegistryAPI to the client requesting it.
     public class Service
     {
         public string Name { get; set; }

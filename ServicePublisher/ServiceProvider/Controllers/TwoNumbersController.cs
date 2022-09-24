@@ -8,11 +8,13 @@ using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 
+//As per assignment specification a controller to have functionality for TwoNumbers
 namespace ServiceProvider.Controllers
 {
     [RoutePrefix("TwoNumbers")]
     public class TwoNumbersController : ApiController
     {
+        //Simple function to add two numbers
         [Route("add/{firstNumber}/{secondNumber}")]
         [Route("add")]
         [HttpGet]
@@ -23,6 +25,7 @@ namespace ServiceProvider.Controllers
             return Ok(result);
         }
 
+        //simple function to multiply two numnbers
         [Route("multiply/{firstNumber}/{secondNumber}")]
         [Route("multiply")]
         [HttpGet]

@@ -16,13 +16,14 @@ using EndPoint = Registry.Models.EndPoint;
 using File = System.IO.File;
 
 namespace Registry.Controllers
-{
+{//This registry is never called directly by any other API. Solely done by the BusinessTier
     [RoutePrefix("Registry")]
     public class RegistryController : ApiController
     {
         private string registerFile; 
         private string projectDirectory;
       
+        //Publishes a new Service which stores it in a Text File.
         [HttpPost]
         [Route("publish")]
         public IHttpActionResult publish(Service service)
@@ -59,6 +60,7 @@ namespace Registry.Controllers
             return Ok();
         }
 
+        //Searches for all the Services from the text file and returns the matches in a List
         [HttpGet]
         [Route("search/{searchText}")]
         [Route("search")]
@@ -102,6 +104,7 @@ namespace Registry.Controllers
             }
         }
 
+        //Fecthes all the Services in the text file.
         [HttpGet]
         [Route("getall")]
         public IHttpActionResult getAll()
@@ -138,6 +141,7 @@ namespace Registry.Controllers
             }
         }
 
+        //Deletes a Service in the textfile
         [HttpDelete]
         [Route("delete")]
         public IHttpActionResult Delete(EndPoint endPoint)

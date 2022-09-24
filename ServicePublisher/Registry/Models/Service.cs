@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Registry.Models
 {
+    //Service Object that is passed back from the Registrys
     public class Service
     {
         public string Name { get; set; }

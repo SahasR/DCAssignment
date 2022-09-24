@@ -15,12 +15,12 @@ using System.Diagnostics;
 using InstanceLibrary;
 
 namespace RegistryBusinessTier.Controllers
-{
+{   //Business Tier for the RegistryController
     [RoutePrefix("Registry")]
     public class RegistryController : ApiController
     {
         RestClient restClient = new RestClient("http://localhost:64696/");
-
+        //Adding a new service.
         [HttpPost]
         [Route("publish")]
         public IHttpActionResult publish(addServiceObject serviceObject)
@@ -47,7 +47,7 @@ namespace RegistryBusinessTier.Controllers
                 return Content(HttpStatusCode.Unauthorized, badToken);
             }
         }
-
+        //Searching for a new Service.
         [HttpGet]
         [Route("search/{token}/{searchText}")]
         [Route("search")]
@@ -74,7 +74,7 @@ namespace RegistryBusinessTier.Controllers
                 return Content(HttpStatusCode.Unauthorized, badToken);
             }
         }
-
+        //Getting all the services
        [HttpGet]
        [Route("getall/{token}")]
        [Route("getall")]
@@ -100,7 +100,7 @@ namespace RegistryBusinessTier.Controllers
             return Content(HttpStatusCode.Unauthorized, badToken);
           }
        }
-
+        //Deleting a service
         [HttpDelete]
         [Route("delete")]
         public IHttpActionResult Delete(endpointObject epointObject)
@@ -128,6 +128,7 @@ namespace RegistryBusinessTier.Controllers
             }
         }
 
+        //Function that returns boolean depending on whether or not its a valid token!
         private Boolean checkToken(int token)
         {
             AuthInterface foob = Instance.getInterface();

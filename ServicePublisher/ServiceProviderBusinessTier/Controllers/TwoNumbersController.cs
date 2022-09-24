@@ -13,11 +13,12 @@ using System.Web.Http;
 
 namespace ServiceProviderBusinessTier.Controllers
 {
+    //BusinessLayer for API for two variable controller
     [RoutePrefix("TwoNumbers")]
     public class TwoNumbersController : ApiController
     {
         RestClient restClient = new RestClient("http://localhost:56201/");
-
+        //Simple addition between two numbers
         [Route("add/{token}/{firstNumber}/{secondNumber}")]
         [Route("add")]
         [HttpGet]
@@ -36,6 +37,7 @@ namespace ServiceProviderBusinessTier.Controllers
             }
         }
 
+        //Simple multiplication between two numbers
         [Route("multiply/{token}/{firstNumber}/{secondNumber}")]
         [Route("multiply")]
         [HttpGet]
@@ -54,6 +56,7 @@ namespace ServiceProviderBusinessTier.Controllers
             }
         }
 
+        //Checks if the token passed through is true
         private Boolean checkToken(int token)
         {
             AuthInterface foob = Instance.getInterface();

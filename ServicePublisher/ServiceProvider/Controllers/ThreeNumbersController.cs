@@ -8,10 +8,11 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace ServiceProvider.Controllers
-{
+{//As per assignemnt spec a Controller that can handle three numbers
     [RoutePrefix("ThreeNumbers")]
     public class ThreeNumbersController : ApiController
     {
+        //Three number additions
         [Route("add/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
@@ -22,6 +23,7 @@ namespace ServiceProvider.Controllers
             return Ok(result);
         }
 
+        //ThreeNumber multiplications
         [Route("multiply/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("multiply")]
         [HttpGet]
