@@ -19,14 +19,18 @@ namespace ClientGUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private AuthInterface authenticator; private static string username; private static string password; private static int currToken = 0;
+        private AuthInterface authenticator; 
+        private static string username; private static string password; private static int currToken = 0;
         private static List<Service> services; private Service service; private static string searchstring; private static string apistring;
 
         public MainWindow()
         {
             InitializeComponent();
             dynamicTestingUI(null);
+
+            //CONNECT TO THE AUTHENTICATOR INTERFACE
             authenticator = Instance.getInterface();
+
             searchButton.IsEnabled = false;
             getAllButton.IsEnabled = false;
         }
@@ -100,6 +104,8 @@ namespace ClientGUI
             GUIDisable();
             Task<List<Service>> task = new Task<List<Service>>(AsyncGetAll);
             task.Start();
+
+            //RETRIEVES ALL PUBLISHED SERVICES TO A LIST
             List<Service> result = await task;
 
             if (result != null)
@@ -116,7 +122,7 @@ namespace ClientGUI
             GUIDisable();
             service = listBox.SelectedItem as Service;
 
-            if (service != null)
+            if(service != null)
             {
                 NameBox.Text = service.Name;
                 DescriptionBox.Text = service.Description;
@@ -158,6 +164,7 @@ namespace ClientGUI
 
         private void dynamicTestingUI(Service service)
         {
+            //ENABLES TEXT BOXES ACCORDING TO THE NUMBER OF PERANDS REQUIRED BY THE SERVICE
             testButton.IsEnabled = false;
             System.Windows.Controls.TextBox[] array = { inputBox1, inputBox2, inputBox3, inputBox4, inputBox5, inputBox6, inputBox7, inputBox8, inputBox9, inputBox10 };
             for (int i = 0; i < array.Length; i++)
@@ -175,6 +182,7 @@ namespace ClientGUI
             }
         }
 
+        //DISABLES GUI ELEMENTS IN THE CLIENT
         private void GUIDisable()
         {
             UserNameBox.IsReadOnly = true;
@@ -187,6 +195,7 @@ namespace ClientGUI
             Progressbar.IsIndeterminate = true;
         }
 
+        //ENABLES GUI ELEMENTS IN THE CLIENT
         private void GUIEnable()
         {
             UserNameBox.IsReadOnly = false;
@@ -197,7 +206,7 @@ namespace ClientGUI
             Progressbar.IsIndeterminate = false;
         }
 
-        //ASYNC THREADING TASKS 
+        //ASYNCHRONOUS THREADING TASKS 
         private int AsyncLogin()
         {
             try
@@ -300,13 +309,15 @@ namespace ClientGUI
 
                 try
                 {
+                    //CHECKS WHETHER USER INPUT IS VALID AND ADDS THEM TO THE URL
                     for (int i = 0; i < service.numOperands; i++)
                     {
                         array[i].Dispatcher.Invoke(new Action(() => text = array[i].Text));
                         if (service.operandtype.Equals("decimal"))
                         {
                             decimal tempChecker = Convert.ToDecimal(text);
-                        } else
+                        } 
+                        else
                         {
                             int tempChecker = Convert.ToInt32(text);
                         }
@@ -343,7 +354,8 @@ namespace ClientGUI
                     {
                         System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                } catch (FormatException)
+                } 
+                catch (FormatException)
                 {
                     System.Windows.Forms.MessageBox.Show("Please add the relevant operand types", "You thought.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }   

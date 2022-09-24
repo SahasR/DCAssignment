@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomException 
 {
+    //CUSTOM-MADE EXCEPTION CLASS TO CAPTURE GENERAL ERRORS IN USER INPUT
     [DataContract]
     public class CustomFaults : Exception
     {

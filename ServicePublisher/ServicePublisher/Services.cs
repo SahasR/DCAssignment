@@ -1,6 +1,7 @@
 ﻿using Authenticator;
 using CustomException;
 using InstanceLibrary;
+using Microsoft.SqlServer.Server;
 using Newtonsoft.Json;
 using RegistryBusinessTier.Models;
 using RestSharp;
@@ -22,6 +23,7 @@ namespace ServicePublisher
        
         public static void Registration(string userName, string password)
         {
+            //ALLOWS USERS TO REGISTER TO THE SYSTEM
             try
             {
                 authenticator = Instance.getInterface();
@@ -36,6 +38,7 @@ namespace ServicePublisher
 
         public static void Login(string userName, string password)
         {
+            //IF REGISTERED TO THE SYSTEM ALREADY, ALLOWS VALID USERS TO LOGIN AND RECEIVE A TOKEN
             try
             {
                 authenticator = Instance.getInterface();
@@ -56,7 +59,7 @@ namespace ServicePublisher
                 //CHECK IF USER INPUT CAN BE CONVERTED TO AN INTEGER
                 numOperands = Int32.Parse(operandNum);
 
-                //CHECK IF THE USER INPUT OPERAND TYPE IS EITHER INTEGER OR DOUBLE
+                //CHECK IF THE USER INPUT OPERAND TYPE IS EITHER INTEGER OR DECIMAL
                 isValid = operandType.ToLower().Equals("integer") || operandType.ToLower().Equals("decimal");
             
                 if (!isValid)
@@ -110,6 +113,7 @@ namespace ServicePublisher
                 }
                 else
                 {
+                    //VALID URL FORMAT RESTRICTED TO http://localhost:63278/
                     CustomFaults error = new CustomFaults
                     {
                         ExceptionMessage = "Not a valid base URL format\n eg:- http://localhost:63278/",
@@ -131,6 +135,7 @@ namespace ServicePublisher
 
         public static void Unpublish(string endpoint)
         {
+            //CHECK IF THE ENDPOINT PROVIDED CONFORMA TO THE EXPECTED URL FORMAT ELSE THROW ERORR
             bool isValid = CheckURLValid(endpoint);
 
             if (isValid)
@@ -141,6 +146,7 @@ namespace ServicePublisher
                 EndPoint end = new EndPoint();
                 end.Value = endpoint;
 
+                //CREATE AN ENDPOINT OBJECT
                 endpointObject endObject = new endpointObject();
                 endObject.token = GetToken();
                 endObject.endpoint = end;
