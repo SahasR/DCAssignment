@@ -5,25 +5,12 @@ using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
 using System.ServiceModel;
-using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace ClientGUI
 {
@@ -254,7 +241,7 @@ namespace ClientGUI
             }
             else if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                System.Windows.Forms.MessageBox.Show("API Service Seems to be down", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show("No Results", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -282,9 +269,9 @@ namespace ClientGUI
                     services = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
                 }
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException e)
             {
-                System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show(e.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return services;
@@ -311,41 +298,55 @@ namespace ClientGUI
 
                 path = path + currToken.ToString() + "/";
 
-                for (int i = 0; i < service.numOperands; i++)
-                {
-                    array[i].Dispatcher.Invoke(new Action(() => text = array[i].Text));
-                    path += text.ToString() + "/";
-                }
-
-                RestClient restClient = new RestClient(apiClient);
-                RestRequest restRequest = new RestRequest(path);
                 try
                 {
-                    RestResponse restResponse = restClient.Get(restRequest);
-                    if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    for (int i = 0; i < service.numOperands; i++)
                     {
-                        System.Windows.Forms.MessageBox.Show("Function not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        array[i].Dispatcher.Invoke(new Action(() => text = array[i].Text));
+                        if (service.operandtype.Equals("decimal"))
+                        {
+                            decimal tempChecker = Convert.ToDecimal(text);
+                        } else
+                        {
+                            int tempChecker = Convert.ToInt32(text);
+                        }
+                        
+                        path += text.ToString() + "/";
                     }
-                    else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+
+                    RestClient restClient = new RestClient(apiClient);
+                    RestRequest restRequest = new RestRequest(path);
+                    try
                     {
-                        if (service.operandtype.Equals("integer"))
+                        RestResponse restResponse = restClient.Get(restRequest);
+                        if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
                         {
-                            int response = JsonConvert.DeserializeObject<IntResult>(restResponse.Content).Value;
-                            returnString = response.ToString();
-                            return returnString;
+                            System.Windows.Forms.MessageBox.Show("Function not found!", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else
+                        else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
                         {
-                            double reponse = JsonConvert.DeserializeObject<DoubleResult>(restResponse.Content).Value;
-                            returnString = reponse.ToString();
-                            return returnString;
+                            if (service.operandtype.Equals("integer"))
+                            {
+                                int response = JsonConvert.DeserializeObject<IntResult>(restResponse.Content).Value;
+                                returnString = response.ToString();
+                                return returnString;
+                            }
+                            else
+                            {
+                                double reponse = JsonConvert.DeserializeObject<DoubleResult>(restResponse.Content).Value;
+                                returnString = reponse.ToString();
+                                return returnString;
+                            }
                         }
                     }
-                }
-                catch (HttpRequestException)
+                    catch (HttpRequestException)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                } catch (FormatException)
                 {
-                    System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                    System.Windows.Forms.MessageBox.Show("Please add the relevant operand types", "You thought.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }   
             }
 
             return returnString;

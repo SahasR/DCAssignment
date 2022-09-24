@@ -8,16 +8,16 @@ using System.Web.Http;
 
 namespace ServiceProvider.Controllers
 {
-    [RoutePrefix("Double")]
-    public class DoubleController : ApiController
+    [RoutePrefix("Decimal")]
+    public class DecimalController : ApiController
     {
         [Route("add/{firstNumber}/{secondNumber}/{thirdNumber}")]
         [Route("add")]
         [HttpGet]
-        public IHttpActionResult Add(double firstNumber, double secondNumber, double thirdNumber)
+        public IHttpActionResult Add(decimal firstNumber, decimal secondNumber, decimal thirdNumber)
         {
             DoubleResult result = new DoubleResult();
-            result.value = firstNumber + secondNumber + thirdNumber;
+            result.value = (double)(firstNumber + secondNumber + thirdNumber);
             return Ok(result);
         }
     }
