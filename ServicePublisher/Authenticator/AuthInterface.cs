@@ -13,9 +13,11 @@ namespace Authenticator
     public interface AuthInterface
     {
         [OperationContract]
+        [FaultContract(typeof(AuthenticatorFaults))]
         String Register(String name, String password);
 
         [OperationContract]
+        [FaultContract(typeof(AuthenticatorFaults))]
         int Login(String name, String Password);
 
         [OperationContract]

@@ -8,6 +8,7 @@ using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,23 +22,29 @@ namespace ServicePublisher
        
         public static void Registration(string userName, string password)
         {
-            authenticator = Instance.getInterface();
-            string validation = authenticator.Register(userName, password);
-            Console.WriteLine(validation);
+            try
+            {
+                authenticator = Instance.getInterface();
+                string validation = authenticator.Register(userName, password);
+                Console.WriteLine(validation);
+            }
+            catch(FaultException<AuthenticatorFaults> error)
+            {
+                Console.WriteLine(error.Detail.ExceptionMessage);
+            }   
         }
 
         public static void Login(string userName, string password)
         {
-            authenticator = Instance.getInterface();
-            token = authenticator.Login(userName, password);
-           
-            if (token == -1)
+            try
             {
-                Console.WriteLine("Login Failed");
-            }
-            else
-            {
+                authenticator = Instance.getInterface();
+                token = authenticator.Login(userName, password);
                 Console.WriteLine("Login Successful. Token: " + token);
+            }
+            catch(FaultException<AuthenticatorFaults> error)
+            {
+                Console.WriteLine(error.Detail.ExceptionMessage);
             }
         }
 
@@ -100,7 +107,6 @@ namespace ServicePublisher
 
                         Console.WriteLine("Service successfully published");
                     }
-
                 }
                 else
                 {

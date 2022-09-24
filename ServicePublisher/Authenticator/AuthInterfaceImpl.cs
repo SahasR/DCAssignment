@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CustomException;
 using System.Xml.Linq;
+using System.Reflection;
 
 namespace Authenticator
 {
@@ -14,7 +15,7 @@ namespace Authenticator
     internal class AuthInterfaceImpl : AuthInterface
     {
         private static AuthInterfaceImpl instance = null;
-        private string registerFile; private string tokenFile; private string projectDirectory; private double timer;
+        private string registerFile; private string tokenFile; private string projectDirectory;
 
         private AuthInterfaceImpl()
         {
@@ -47,7 +48,13 @@ namespace Authenticator
                 WriteFile(name, password, registerFile);
                 return "Successfully Registered";
             }
-            return "Failed to Register";
+            else
+            {
+                AuthenticatorFaults fault = new AuthenticatorFaults();
+                fault.ExceptionMessage = "Registration Failed. User already exists";
+                fault.ExceptionDescription = "Authentication Error";
+                throw new FaultException<AuthenticatorFaults>(fault);
+            }
         }
 
         //ISSUES A TOKEN FOR A VALID REGISTERED USER
@@ -65,7 +72,13 @@ namespace Authenticator
                 WriteFile(name, number.ToString(), tokenFile);
                 return number;
             }
-            return -1;
+            else
+            {
+                AuthenticatorFaults fault = new AuthenticatorFaults();
+                fault.ExceptionMessage = "Login Failed. Username and password does not match";
+                fault.ExceptionDescription = "Authentication Error";
+                throw new FaultException<AuthenticatorFaults>(fault);
+            }
         }
 
         public String Validate(int token)
@@ -147,17 +160,6 @@ namespace Authenticator
             {
                 sw.WriteLine(name + ","+ information);
             }
-        }
-
-        //GETTERS AND SETTERS FOR THE TIME
-        public double GetTimer()
-        {
-            return timer;
-        }
-
-        public void SetTimer(double timer)
-        {
-            this.timer = timer * 60 * 1000.0;
         }
 
         // CLEARS THE FILE THAT CONTAINS ALL GENERATED TOKENS

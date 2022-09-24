@@ -38,7 +38,7 @@ namespace Authenticator
             //TURNING UP THE AUTHENTICATOR
             impl = AuthInterfaceImpl.getInstance();
            
-            //CLEARING TOKENS USING MULTI THREADING
+            //START CLEARING TOKENS USING MULTI THREADING
             CreateStartTimer();
 
             //SETTING UP THE AUTHENTICATOR
@@ -53,7 +53,7 @@ namespace Authenticator
         }
         private static void CreateStartTimer()
         {
-            TimeSpan InitialInterval = new TimeSpan(0, 0, 5);
+            TimeSpan InitialInterval = new TimeSpan(0, timeout, 0);
             TimeSpan RegularInterval = new TimeSpan(0, timeout, 0);
             clearTimer = new System.Threading.Timer(ClearFiles, null, InitialInterval, RegularInterval);
         }
