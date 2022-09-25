@@ -250,21 +250,29 @@ namespace ClientGUI
             services = null;
             RestClient restClient = new RestClient("http://localhost:57446/");
             RestRequest restRequest = new RestRequest("Registry/search/" + currToken + "/" + searchstring);
-            RestResponse restResponse = restClient.Get(restRequest);
 
-            if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            try
             {
-                System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                System.Windows.Forms.MessageBox.Show("No Results", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                services = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
-            }
+                RestResponse restResponse = restClient.Get(restRequest);
 
+                if (restResponse.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    System.Windows.Forms.MessageBox.Show("Token invalid (might be expired), login again", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    System.Windows.Forms.MessageBox.Show("No Results", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (restResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    services = JsonConvert.DeserializeObject<List<Service>>(restResponse.Content);
+                }
+            }
+            catch (HttpRequestException e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message, "Login Again", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+           
             return services;
         }
 
@@ -288,7 +296,7 @@ namespace ClientGUI
             }
             catch (HttpRequestException e)
             {
-                System.Windows.Forms.MessageBox.Show(e.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show(e.Message, "Login Again", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             return services;

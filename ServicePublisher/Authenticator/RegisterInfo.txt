@@ -1,6 +1,2 @@
-Kasu,1234
 sahas,12345
 kasu,12345
-Uma,6253
-Kasundi,12345678
-abi,12345
